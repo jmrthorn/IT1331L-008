@@ -77,10 +77,38 @@
             const message = document.getElementById("message").value;
             const speed = document.getElementById("speed").value;
             const pitch = document.getElementById("pitch").value;
-            console.log("voiceCode=",voiceCode);
-            console.log("message=",message);
-            console.log("speed=",speed);
-            console.log("pitch=",pitch);
+            let response = await generateSpeech(voiceCode, message, speed, pitch);
+            const speechHTML = `<audio controls><source src="${response.result.audio_url}" type="audio/ogg"></audio>`;
+            document.getElementById('speech-player').innerHTML = speechHTML;
+            console.log(response.result.audio_url);
+        }
+
+        async function generateSpeech(voiceCode, message, speed, pitch) {
+            const url = 'https://cloudlabs-text-to-speech.p.rapidapi.com/synthesize';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'X-RapidAPI-Key': '4dda8a88f4mshfa73fb63294effdp1c64bdjsn3c353136408d',
+                    'X-RapidAPI-Host': 'cloudlabs-text-to-speech.p.rapidapi.com'
+                },
+                body: new URLSearchParams({
+                    voice_code: voiceCode,
+                    text: message,
+                    speed: speed,
+                    pitch: speed,
+                    output_type: 'audio_url'
+                })
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                console.log(result);
+                return result
+            } catch (error) {
+                console.error(error);
+            }
         }
     </script>
 </body>
