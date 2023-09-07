@@ -66,16 +66,22 @@
         <input type="number" id="speed" name="speed" max="2" min="0" placeholder="Enter speed...">
         <label for="pitch">Pitch:</label>
         <input type="number" id="pitch" name="pitch" max="2" min="0" placeholder="Enter pitch...">
-        <button>Generate Speech</button>
+        <button onClick="loadPlayer()">Generate Speech</button>
         <br />
         <div id="speech-player"></div>
     </div>
 
     <script>
-        const voiceCode = document.querySelector('input[name="gender"]:checked').value === "male" ? "fil-PH-1" :"fil-PH-2";
-        const message = document.getElementById("message").value;
-        const speed = document.getElementById("speed").value;
-        const pitch = document.getElementById("pitch").value;
+        async function loadPlayer() {
+            const voiceCode = document.querySelector('input[name="gender"]:checked').value === "male" ? "fil-PH-1" :"fil-PH-2";
+            const message = document.getElementById("message").value;
+            const speed = document.getElementById("speed").value;
+            const pitch = document.getElementById("pitch").value;
+            console.log("voiceCode=",voiceCode);
+            console.log("message=",message);
+            console.log("speed=",speed);
+            console.log("pitch=",pitch);
+        }
     </script>
 </body>
 
